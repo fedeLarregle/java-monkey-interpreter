@@ -50,14 +50,11 @@ public class Token {
         public static final String RETURN   = "RETURN";
     }
 
-    private static final Token instance;
-    private final Map<String, String> keywords;
+    private static final Map<String, String> keywords;
+    private final String type;
+    private final String literal;
 
     static {
-        instance = new Token();
-    }
-
-    private Token() {
         keywords = new HashMap<>(){{
             put("fn", Keywords.FUNCTION);
             put("let", Keywords.LET);
@@ -69,10 +66,20 @@ public class Token {
         }};
     }
 
-    public static Token getInstance() { return instance; }
+    public Token(String type, String literal) {
+        this.type = type;
+        this.literal = literal;
+    }
 
-    public String lookupIdentifier(String identifier) {
+    public static String lookupIdentifier(String identifier) {
         return keywords.get(identifier);
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public String getLiteral() {
+        return literal;
+    }
 }
