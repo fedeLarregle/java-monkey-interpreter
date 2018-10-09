@@ -1,6 +1,6 @@
-package main.java.com.larregle.lexer;
+package com.larregle.lexer;
 
-import main.java.com.larregle.token.Token;
+import com.larregle.token.Token;
 
 public class Lexer {
 
@@ -25,7 +25,7 @@ public class Lexer {
                 if (peek != null) {
                     if (peek == '=') {
                         readChar();
-                        token = new Token(Token.Operators.ASSIGN, Character.toString(c) + Character.toString(c));
+                        token = new Token(Token.Operators.EQ, Character.toString(c) + Character.toString(c));
                     } else {
                         token = new Token(Token.Operators.ASSIGN, Character.toString(c));
                     }
@@ -82,7 +82,7 @@ public class Lexer {
                 break;
             }
             case ']': {
-                token = new Token(Token.Delimiter.LBRACKET, Character.toString(c));
+                token = new Token(Token.Delimiter.RBRACKET, Character.toString(c));
                 break;
             }
             case '{': {
@@ -91,6 +91,14 @@ public class Lexer {
             }
             case '}': {
                 token = new Token(Token.Delimiter.RBRACE, Character.toString(c));
+                break;
+            }
+            case ';': {
+                token = new Token(Token.Delimiter.SEMICOLON, Character.toString(c));
+                break;
+            }
+            case ',': {
+                token = new Token(Token.Delimiter.COMMA, Character.toString(c));
                 break;
             }
             case '"': {
@@ -104,7 +112,7 @@ public class Lexer {
             default:
                 if (Character.isLetter(c)) {
                     final String literal = readIdentifier();
-                    return new Token(literal, Token.lookupIdentifier(literal));
+                    return new Token(Token.lookupIdentifier(literal), literal);
                 } else if (Character.isDigit(c)) {
                     return new Token(Token.INT, readNumber());
                 } else {

@@ -1,4 +1,4 @@
-package main.java.com.larregle.token;
+package com.larregle.token;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,7 +55,7 @@ public class Token {
     private final String literal;
 
     static {
-        keywords = new HashMap<>(){{
+        keywords = new HashMap<String, String>(){{
             put("fn", Keywords.FUNCTION);
             put("let", Keywords.LET);
             put("true", Keywords.TRUE);
@@ -72,7 +72,7 @@ public class Token {
     }
 
     public static String lookupIdentifier(String identifier) {
-        return keywords.get(identifier);
+        return keywords.get(identifier) != null ? keywords.get(identifier) : IDENTIFIER;
     }
 
     public String getType() {
